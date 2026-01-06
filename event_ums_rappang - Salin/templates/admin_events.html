@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}Kelola Event{% endblock %}
+
+{% block content %}
+<style>
+    .admin-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .btn {
+        padding: 0.7rem 1.5rem;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: all 0.3s;
+        display: inline-block;
+    }
+    .btn-primary {
+        background: #667eea;
+        color: white;
+    }
+    .btn-primary:hover {
+        background: #764ba2;
+    }
+    .btn-danger {
+        background: #dc3545;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .btn-danger:hover {
+        background: #c82333;
+    }
+    .btn-warning {
+        background: #ffc107;
+        color: #333;
+    }
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+    table {
+        width: 100%;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    th {
+        background: #667eea;
+        color: white;
+        padding: 1rem;
+        text-align: left;
+    }
+    td {
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+    tr:last-child td {
+        border-bottom: none;
+    }
+    tr:hover {
+        background: #f8f9fa;
+    }
+    .actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+</style>
+
+<div class="admin-header">
+    <h2>📅 Kelola Event</h2>
+    <div>
+        <a href="{{ url_for('admin_event_add') }}" class="btn btn-primary">+ Tambah Event</a>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">← Dashboard</a>
+    </div>
+</div>
+
+{% if events %}
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nama Event</th>
+            <th>Tanggal</th>
+            <th>Lokasi</th>
+            <th>Panitia</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td>{{ event['id_event'] }}</td>
+            <td><strong>{{ event['nama_event'] }}</strong></td>
+            <td>{{ event['tanggal'] }}</td>
+            <td>{{ event['lokasi'] }}</td>
+            <td>{{ event['nama_panitia'] or '-' }}</td>
+            <td>
+                <div class="actions">
+                    <a href="{{ url_for('admin_event_edit', event_id=event['id_event']) }}" class="btn btn-warning">Edit</a>
+                    <form method="POST" action="{{ url_for('admin_event_delete', event_id=event['id_event']) }}" 
+                          onsubmit="return confirm('Yakin ingin menghapus event ini?');" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Belum ada event. <a href="{{ url_for('admin_event_add') }}">Tambah event baru</a></p>
+{% endif %}
+{% endblock %}

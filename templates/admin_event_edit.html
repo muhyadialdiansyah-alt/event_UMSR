@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Event{% endblock %}
+
+{% block content %}
+<style>
+    .form-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .form-container h2 {
+        color: #667eea;
+        margin-bottom: 1.5rem;
+    }
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: #333;
+    }
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+    .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+    .btn {
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .btn-primary {
+        background: #667eea;
+        color: white;
+    }
+    .btn-primary:hover {
+        background: #764ba2;
+    }
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+        margin-left: 1rem;
+    }
+</style>
+
+<div class="form-container">
+    <h2>✏️ Edit Event</h2>
+    
+    <form method="POST" action="{{ url_for('admin_event_edit', event_id=event['id_event']) }}">
+        <div class="form-group">
+            <label for="nama_event">Nama Event *</label>
+            <input type="text" id="nama_event" name="nama_event" required 
+                   value="{{ event['nama_event'] }}">
+        </div>
+
+        <div class="form-group">
+            <label for="tanggal">Tanggal *</label>
+            <input type="date" id="tanggal" name="tanggal" required 
+                   value="{{ event['tanggal'] }}">
+        </div>
+
+        <div class="form-group">
+            <label for="lokasi">Lokasi *</label>
+            <input type="text" id="lokasi" name="lokasi" required 
+                   value="{{ event['lokasi'] }}">
+        </div>
+
+        <div class="form-group">
+            <label for="deskripsi">Deskripsi</label>
+            <textarea id="deskripsi" name="deskripsi">{{ event['deskripsi'] }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Event</button>
+        <a href="{{ url_for('admin_events') }}" class="btn btn-secondary">Batal</a>
+    </form>
+</div>
+{% endblock %}

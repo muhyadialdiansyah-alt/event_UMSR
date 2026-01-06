@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Event - FEB UMS Rappang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo h1 {
+            color: white;
+            font-size: 1.5rem;
+        }
+        .logo p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            margin-left: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.1);
+        }
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+        .page-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        .page-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .page-title p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Event Cards */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        .event-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            color: white;
+        }
+        .event-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .event-body {
+            padding: 1.5rem;
+        }
+        .event-info {
+            margin-bottom: 1rem;
+        }
+        .event-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.7rem;
+            color: #666;
+        }
+        .event-info-item .icon {
+            width: 30px;
+            font-size: 1.2rem;
+        }
+        .event-description {
+            color: #666;
+            line-height: 1.6;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        .btn-daftar {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-daftar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        /* No Events Message */
+        .no-events {
+            text-align: center;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .no-events .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        .no-events h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        .no-events p {
+            color: #666;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(0,0,0,0.2);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            .page-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>🎓 Sistem Pendaftaran Event</h1>
+                <p>FEB UMS Rappang</p>
+            </div>
+            <nav>
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('admin_login') }}">Login Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Page Title -->
+            <div class="page-title">
+                <h2>📅 Daftar Event Tersedia</h2>
+                <p>Pilih event yang ingin Anda ikuti dan daftar sekarang!</p>
+            </div>
+
+            <!-- Events Grid -->
+            {% if events %}
+                <div class="events-grid">
+                    {% for event in events %}
+                    <div class="event-card">
+                        <div class="event-header">
+                            <h3>{{ event['nama_event'] }}</h3>
+                        </div>
+                        <div class="event-body">
+                            <div class="event-info">
+                                <div class="event-info-item">
+                                    <span class="icon">📅</span>
+                                    <strong>Tanggal:</strong>&nbsp;{{ event['tanggal'] }}
+                                </div>
+                                <div class="event-info-item">
+                                    <span class="icon">📍</span>
+                                    <strong>Lokasi:</strong>&nbsp;{{ event['lokasi'] }}
+                                </div>
+                                <div class="event-info-item">
+                                    <span class="icon">👤</span>
+                                    <strong>Panitia:</strong>&nbsp;{{ event['nama_panitia'] or 'Belum ditentukan' }}
+                                </div>
+                            </div>
+                            
+                            {% if event['deskripsi'] %}
+                            <div class="event-description">
+                                {{ event['deskripsi'] }}
+                            </div>
+                            {% endif %}
+                            
+                            <a href="{{ url_for('register', event_id=event['id_event']) }}" class="btn-daftar">
+                                🚀 Daftar Sekarang
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-events">
+                    <div class="icon">📭</div>
+                    <h3>Belum Ada Event Tersedia</h3>
+                    <p>Saat ini belum ada event yang dibuka. Silakan cek kembali nanti!</p>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 FEB UMS Rappang - Kelompok 3</p>
+        </div>
+    </footer>
+</body>
+</html>
